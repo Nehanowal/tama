@@ -1,4 +1,4 @@
-function CompanyPreview(props) {
+function CompanyPreview(this: any, props) {
   this.fallback = new Fallback({})
   this.fallback.error.set(new TypeError("")) // Equals `throw new TypeError("")`.
 
