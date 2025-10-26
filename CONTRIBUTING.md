@@ -12,6 +12,12 @@ When people reply you with _neutral_ sounding text, it may sound rude - while **
 Be proffesional, tactical and straighforward. If you want to relax and get chills with authors and some other contributors,
 you can visit our [Dicord Server](https://discord.gg/sHp2pxrSws).
 
+**AI (Assisted Insecurity)**
+Don't use Language Models, Copilots, Generated content or any Coding Assistance tools, they usually get everything wrong.
+You can use it if it really just eases your work. If you don't understand what you're doing and prompting it with some descriptions,
+you may not create a Pull Request - you will suffer from numerous (endless) change requests.
+In simple words, if you wait for ideas from AI - don't create a PR, if you put **your ideas** in prompting and refine generated content - you're good.
+
 ## Taking over Issues
 
 1. Choose what you think you're confident in
