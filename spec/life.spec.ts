@@ -98,3 +98,58 @@ describe('Life Class > adopt()', () => {
     expect(logic.startup).toHaveBeenCalledTimes(1);
   });
 });
+describe('Life Class > scoped() with cleanup', () => {
+  it('should execute the returned cleanup function on exit', () => {
+    const life = new Life();
+    const setupFn = mock();
+    const cleanupFn = mock();
+
+    life.enter();
+    
+    // Call scoped with a function that returns the cleanup function
+    life.scoped(() => {
+      setupFn();
+      return cleanupFn;
+    });
+
+    // At this point, only the setup function should have been called
+    expect(setupFn).toHaveBeenCalledTimes(1);
+    expect(cleanupFn).not.toHaveBeenCalled();
+
+    // Now, trigger the exit
+    life.exit();
+
+    // The cleanup function should now have been called
+    expect(cleanupFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call cleanup function if life never exits', () => {
+    const life = new Life();
+    const cleanupFn = mock();
+
+    life.enter();
+    life.scoped(() => {
+      return cleanupFn;
+    });
+
+    expect(cleanupFn).not.toHaveBeenCalled();
+  });
+  
+  it('should handle multiple scoped cleanups correctly', () => {
+    const life = new Life();
+    const cleanup1 = mock();
+    const cleanup2 = mock();
+    
+    life.enter();
+    life.scoped(() => cleanup1);
+    life.scoped(() => cleanup2);
+
+    expect(cleanup1).not.toHaveBeenCalled();
+    expect(cleanup2).not.toHaveBeenCalled();
+    
+    life.exit();
+    
+    expect(cleanup1).toHaveBeenCalledTimes(1);
+    expect(cleanup2).toHaveBeenCalledTimes(1);
+  });
+});
